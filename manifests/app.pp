@@ -9,6 +9,7 @@ define unicorn::app (
   $user            = 'root',
   $group           = '0',
   $config_file     = '',
+  $manage_config   = true,
   $config_template = 'unicorn/config_unicorn.config.rb.erb',
   $initscript      = undef,
   $init_time       = 15,
@@ -89,12 +90,14 @@ define unicorn::app (
     notify  => Service["unicorn_${name}"],
   }
 
-  file { $config:
-    owner   => 'root',
-    group   => '0',
-    mode    => '0644',
-    content => template($config_template),
-    notify  => Service["unicorn_${name}"];
+  if $manage_config {
+    file { $config:
+      owner   => 'root',
+      group   => '0',
+      mode    => '0644',
+      content => template($config_template),
+      notify  => Service["unicorn_${name}"];
+    }
   }
 
   if $logrotate {
