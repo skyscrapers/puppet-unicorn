@@ -61,7 +61,7 @@ reload)
 upgrade)
 	sig USR2 && sleep 5 && oldsig QUIT && echo "Killing old master" && exit 0
 	echo >&2 "Couldn't upgrade, starting '$CMD' instead"
-	su - $USER -c "$CMD"
+	sig QUIT && su - $USER -c "$CMD"
 	;;
 rotate)
 	sig USR1 && echo rotated logs OK && exit 0
