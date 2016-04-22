@@ -19,6 +19,7 @@ define unicorn::app (
   $source          = 'system',
   $logrotate       = false,
   $rvm_version     = '2.1.0',
+  $timeout         = 60,
 ) {
 
   #require unicorn

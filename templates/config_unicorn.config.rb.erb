@@ -5,7 +5,7 @@ worker_processes <%= @workers %>
 app_path= '<%= @approot %>'
 working_directory "#{app_path}/"
 listen '<%= @socket %>', :backlog => <%= @backlog %>
-timeout 300
+timeout <%= @timeout %>
 pid "<%= @pidfile %>"
 client_body_buffer_size 524288
 
